@@ -49,8 +49,8 @@ class CreateSpaceRoom(Plugin):
                     #self.log.info(mymsg)
                     room_id = await self.client.create_room(alias_localpart=sanitized_name, name=roomname,
                             invitees=invitees, power_level_override=pl_override)
-                    await evt.respond(f"room created, alias is #{sanitized_name}:{server}", edits=mymsg)
 
+                    await evt.respond(f"updating room states...", edits=mymsg)
                     parent_event_content = json.dumps({'auto_join': False, 'suggested': False, 'via': [server]})
                     child_event_content = json.dumps({'canonical': True, 'via': [server]})
                     join_rules_content = json.dumps({'join_rule': 'restricted', 'allow': [{'type': 'm.room_membership',
@@ -59,8 +59,8 @@ class CreateSpaceRoom(Plugin):
                     await self.client.send_state_event(space_id, 'm.space.child', parent_event_content, state_key=room_id)
                     await self.client.send_state_event(room_id, 'm.space.parent', child_event_content, state_key=space_id)
                     await self.client.send_state_event(room_id, 'm.room.join_rules', join_rules_content, state_key="")
+                    await evt.respond(f"room created and updated, alias is #{sanitized_name}:{server}", edits=mymsg)
 
-                    await evt.respond(f"room states updated", edits=mymsg)
 
                 except Exception as e:
                     await evt.respond(f"i tried, but something went wrong: \"{e}\"", edits=mymsg)
