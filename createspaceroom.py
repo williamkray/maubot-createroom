@@ -15,6 +15,7 @@ class Config(BaseProxyConfig):
     def do_update(self, helper: ConfigUpdateHelper) -> None:
         helper.copy("admins")
         helper.copy("mods")
+        helper.copy("encrypt")
         helper.copy("space_id")
         helper.copy("invitees")
         helper.copy("server")
@@ -59,6 +60,14 @@ class CreateSpaceRoom(Plugin):
                     await self.client.send_state_event(space_id, 'm.space.child', parent_event_content, state_key=room_id)
                     await self.client.send_state_event(room_id, 'm.space.parent', child_event_content, state_key=space_id)
                     await self.client.send_state_event(room_id, 'm.room.join_rules', join_rules_content, state_key="")
+
+                    if self.config["encrypt"]:
+                        encryption_content = json.dumps({"algorithm": "m.megolm.v1.aes-sha2"})
+
+                        await self.client.send_state_event(room_id, 'm.room.encryption', encryption_content,
+                                                           state_key="")
+                        await evt.respond(f"encrypting room...", edits=mymsg)
+
                     await evt.respond(f"room created and updated, alias is #{sanitized_name}:{server}", edits=mymsg)
 
 

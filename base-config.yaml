@@ -5,6 +5,9 @@ space_id: '!somespaceroomid:server.tld'
 # this is a workaround to not being smart right now.
 server: 'server.tld'
 
+# whether to encrypt rooms at creation time
+encrypt: False
+
 # list of users who can convince your bot to create a room
 # these users will also be made room admins
 admins:
