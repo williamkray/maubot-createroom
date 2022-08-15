@@ -1,0 +1,22 @@
+# room ID of the space this room should be a part of
+space_id: '!somespaceroomid:server.tld'
+
+# server to use for alias publishing and whatnot.
+# this is a workaround to not being smart right now.
+server: 'server.tld'
+
+# list of users who can convince your bot to create a room
+# these users will also be made room admins
+admins:
+- "@user1:server.tld"
+- "@user2:server.tld"
+
+# list of users who can use this bot but will not be room admins
+mods:
+- "@user3:server.tld"
+- "@user4:server.tld"
+
+# list of users who should be invited to the room immediately (bots perhaps)
+invitees:
+- "@mybot:server.tld"
+- "@secondaryadmin:server.tld"
