@@ -18,7 +18,6 @@ class Config(BaseProxyConfig):
         helper.copy("encrypt")
         helper.copy("space_id")
         helper.copy("invitees")
-        helper.copy("server")
 
 
 class CreateSpaceRoom(Plugin):
@@ -32,6 +31,7 @@ class CreateSpaceRoom(Plugin):
     @command.argument("roomname", pass_raw=True, required=True)
     async def create_that_room(self, evt: MessageEvent, roomname: str) -> None:
         if (roomname == "help") or len(roomname) == 0:
+            self.log.debug(f"DEBUG: {homeserver}")
             await evt.reply('pass me a room name (like "cool topic") and i will create it and add it to the space')
         else:
             if evt.sender in self.config["admins"] or evt.sender in self.config["mods"]:
@@ -39,8 +39,8 @@ class CreateSpaceRoom(Plugin):
                     sanitized_name = re.sub(r"[^a-zA-Z0-9]", '', roomname).lower()
                     invitees = self.config['invitees']
                     space_id = self.config['space_id']
-                    #server = self.client.whoami().domain
-                    server = self.config['server']
+                    ## homeserver is derived from maubot's client instance since this is the user that will create the room
+                    server = self.client.parse_user_id(self.client.mxid)[1]
                     pl_override = {"users": {self.client.mxid: 100}}
                     for u in self.config['admins']:
                         pl_override["users"][u] = 100

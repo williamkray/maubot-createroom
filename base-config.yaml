@@ -1,10 +1,6 @@
 # room ID of the space this room should be a part of
 space_id: '!somespaceroomid:server.tld'
 
-# server to use for alias publishing and whatnot.
-# this is a workaround to not being smart right now.
-server: 'server.tld'
-
 # whether to encrypt rooms at creation time
 encrypt: False
 
