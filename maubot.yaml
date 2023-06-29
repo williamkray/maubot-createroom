@@ -1,6 +1,7 @@
 maubot: 0.1.0
 id: org.jobmachine.createspaceroom
 version: 0.1.2
+license: MIT
 modules:
   - createspaceroom
 main_class: CreateSpaceRoom
