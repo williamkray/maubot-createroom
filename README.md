@@ -1,5 +1,8 @@
 # create room bot
 
+# this plugin is now deprecated, and its functionality (and improvements!) have been moved into
+[communitybot](https://github.com/williamkray/maubot-communitybot)
+
 very stupid bot that:
 
 1. creates a room
